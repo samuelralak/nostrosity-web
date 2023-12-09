@@ -1,6 +1,6 @@
 "use client"
 
-import NDK, {NDKSigner} from "@nostr-dev-kit/ndk";
+import NDK, {NDKEvent, NDKSigner} from "@nostr-dev-kit/ndk";
 import {createContext, ReactNode, useEffect, useRef, useState} from "react";
 import {WifiIcon} from "@heroicons/react/24/outline";
 
@@ -8,7 +8,8 @@ export interface NDKContext {
     ndkConnected: boolean,
     ndkInstance: () => NDK,
     setNDKSigner: (signer: NDKSigner) => void,
-    removeNDKSigner: () => void
+    removeNDKSigner: () => void,
+    publishEvent: (kind: number, content: Record<string, any> | string) => Promise<void>
 }
 
 export const NDKContext = createContext<NDKContext | null>(null)
@@ -27,10 +28,17 @@ const NDKProvider = ({children}: { children: ReactNode }) => {
         }
     }
 
-    const ndkInstance = (): NDK => ndk.current!
+    const publishEvent = async (kind: number, content: Record<string, any> | string) => {
+        const ndkEvent = new NDKEvent(ndk.current)
+        ndkEvent.kind = kind
+        ndkEvent.content = typeof content === 'object' ? JSON.stringify(content) : content
+        await ndkEvent.publish()
+    }
 
+    const ndkInstance = (): NDK => ndk.current!
     const setNDKSigner = (signer: NDKSigner | undefined) => ndk.current!.signer = signer
     const removeNDKSigner = () => setNDKSigner(undefined)
+
 
     useEffect(() => {
         connectNDK().catch(console.error)
@@ -47,7 +55,7 @@ const NDKProvider = ({children}: { children: ReactNode }) => {
     }
 
     return (
-        <NDKContext.Provider value={{ndkConnected, ndkInstance, setNDKSigner, removeNDKSigner}}>
+        <NDKContext.Provider value={{ndkConnected, ndkInstance, setNDKSigner, removeNDKSigner, publishEvent}}>
             {children}
         </NDKContext.Provider>
     )

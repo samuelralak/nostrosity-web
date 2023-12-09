@@ -1,16 +1,19 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {baseApi, userApi} from "@/api";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {userApi} from "@/api";
+import identifierApi from "@/api/identifier";
+
 
 const store = configureStore({
-    reducer: {
-        [userApi.reducerPath]: userApi.reducer
-    },
+    reducer: combineReducers({
+        [userApi.reducerPath]: userApi.reducer,
+        [identifierApi.reducerPath]: identifierApi.reducer
+    }),
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: ['persist/PERSIST'],
             }
-        }).concat([userApi.middleware]),
+        }).concat([userApi.middleware, identifierApi.middleware]),
 })
 
 export type RootState = ReturnType<typeof store.getState>

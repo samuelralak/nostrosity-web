@@ -1,8 +1,14 @@
-export interface UserResponse {
-    data: {
-        id: string;
-        attributes: Record<string, never>
-    }
+export interface Data {
+    id: string;
+    attributes: Record<string, never>
+}
+
+export interface ObjectResponse {
+    data: Data
+}
+
+export interface ListResponse {
+    data: Data[]
 }
 
 export interface UserPayload {
@@ -15,7 +21,7 @@ export interface UserPayload {
             id?: string;
             name: string;
             default?: boolean;
-        }
+        }[]
     }
 }
 
@@ -23,6 +29,16 @@ export interface User {
     id: string;
     pubkey: string;
     npub: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface Identifier {
+    id: string;
+    default: boolean;
+    name: string;
+    value: string;
+    userId: string;
     createdAt: string;
     updatedAt: string;
 }

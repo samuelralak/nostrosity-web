@@ -4,6 +4,7 @@ import './globals.css'
 import {ReactNode} from "react";
 import NDKProvider from "@/components/NDKProvider";
 import StoreProvider from "@/components/StoreProvider";
+import AuthProvider from "@/components/AuthProvider";
 
 const poppins = Poppins({
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -20,11 +21,13 @@ const RootLayout = ({children}: { children: ReactNode }) => {
     return (
         <html lang="en" className="h-full">
         <body className={`${poppins.className} h-full`}>
-        <StoreProvider>
-            <NDKProvider>
-                {children}
-            </NDKProvider>
-        </StoreProvider>
+        <AuthProvider>
+            <StoreProvider>
+                <NDKProvider>
+                    {children}
+                </NDKProvider>
+            </StoreProvider>
+        </AuthProvider>
         </body>
         </html>
     )
