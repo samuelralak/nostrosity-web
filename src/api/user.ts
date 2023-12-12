@@ -5,10 +5,8 @@ import {transformer} from "@/utils";
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getUser: builder.mutation<User, string>({
+        queryUser: builder.query<boolean, string | null>({
             query: (pubkey: string) => ({method: 'GET', url: `/users/${pubkey}`}),
-            transformResponse: (response: ObjectResponse) => <User>transformer(response),
-            invalidatesTags: (_result, _error, pubkey) => [{type: 'User', pubkey}]
         }),
         createUser: builder.mutation<User, UserPayload>({
             query: (payload: UserPayload) => ({method: 'POST', url: '/users', body: payload}),
@@ -19,5 +17,5 @@ const userApi = baseApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const {useCreateUserMutation} = userApi
+export const {useCreateUserMutation, useQueryUserQuery} = userApi
 export default userApi

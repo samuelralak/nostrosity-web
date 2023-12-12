@@ -5,6 +5,7 @@ import secureLocalStorage from "react-secure-storage";
 import {AppSession} from "@/resources/session";
 import {Mutex} from "async-mutex";
 import {Token} from "@/resources/token";
+import {userSignedOut} from "@/store/reducers/session-reducer";
 
 const mutex = new Mutex()
 
@@ -84,7 +85,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
                     result = await baseQuery(args, api, extraOptions)
                 } else {
-                    secureLocalStorage.removeItem(constants.STORAGE_KEY)
+                    api.dispatch(userSignedOut())
                 }
             } finally {
                 // release must be called once the mutex should be released again.
@@ -103,7 +104,46 @@ const baseApi = createApi({
     reducerPath: 'baseApi',
     tagTypes: ['User', 'Identifier'],
     baseQuery: baseQueryWithReauth,
-    endpoints: builder => ({}),
+    endpoints: builder => ({
+        createAuthorizationCode: builder.mutation({
+            query: ({ codeChallenge, userId }) => ({
+                url: '/oauth/authorize',
+                method: 'POST',
+                body: {
+                    response_type: 'code',
+                    redirect_uri: constants.REDIRECT_URI,
+                    client_id: constants.CLIENT_ID,
+                    scope: 'user',
+                    code_challenge: codeChallenge,
+                    code_challenge_method: 'S256',
+                    user_id: userId,
+                },
+            }),
+        }),
+        createAccessToken: builder.mutation({
+            query: ({ code, codeVerifier }) => ({
+                url: '/oauth/token',
+                method: 'POST',
+                body: {
+                    grant_type: 'authorization_code',
+                    redirect_uri: constants.REDIRECT_URI,
+                    code_verifier: codeVerifier,
+                    code: code
+                },
+            }),
+        }),
+        revokeToken: builder.mutation({
+            query: ({ accessToken }) => ({
+                url: '/oauth/revoke',
+                method: 'POST',
+                body: {
+                    token: accessToken,
+                },
+            }),
+        }),
+    }),
 })
+
+export const {useCreateAuthorizationCodeMutation, useCreateAccessTokenMutation, useRevokeTokenMutation} = baseApi
 
 export default baseApi

@@ -6,13 +6,17 @@ import constants from "@/constants";
 import secureLocalStorage from "react-secure-storage";
 import {AppSession} from "@/resources/session";
 
-const fetchBasicAuthToken = () => startTransition(() => {
+export const fetchBasicAuthToken = () => startTransition(() => {
     (async () => {
-        const [token, success] = await basicAuthToken(constants.CLIENT_ID)
+        const session = (secureLocalStorage.getItem(constants.STORAGE_KEY) ?? {}) as AppSession
+        const [token, success] = await basicAuthToken(constants.CLIENT_ID!)
 
         if (success) {
-            const session: AppSession = {token: {tokenType: 'Basic', accessToken: token!}}
-            await secureLocalStorage.setItem(constants.STORAGE_KEY, session)
+            await secureLocalStorage.setItem(constants.STORAGE_KEY, {
+                ...session, ...{
+                    token: {tokenType: 'Basic', accessToken: token!}
+                }
+            })
         }
     })()
 })
