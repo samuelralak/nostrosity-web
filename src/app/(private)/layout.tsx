@@ -89,7 +89,7 @@ const Layout = ({children}: { children: ReactNode }) => {
                         <Menu as="div" className="relative ml-3">
                             <div>
                                 <Menu.Button
-                                    className="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    className="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                     <span className="absolute -inset-1.5"/>
                                     <span className="sr-only">Open user menu</span>
                                     <img className="h-8 w-8 rounded-full"
@@ -107,7 +107,7 @@ const Layout = ({children}: { children: ReactNode }) => {
                                 leaveTo="transform opacity-0 scale-95"
                             >
                                 <Menu.Items
-                                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-lg bg-white py-1 shadow-lg ring-2 ring-black ring-opacity-5 focus:outline-none">
                                     <Menu.Item>
                                         {({active}) => (
                                             <a
@@ -129,7 +129,7 @@ const Layout = ({children}: { children: ReactNode }) => {
                 <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                     <div className="fixed inset-0 z-50"/>
                     <Dialog.Panel
-                        className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-white px-4 pb-6 sm:max-w-sm sm:px-6 sm:ring-1 sm:ring-gray-900/10">
+                        className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-white px-4 pb-6 sm:max-w-sm sm:px-6 sm:ring-2 sm:ring-gray-900/10">
                         <div className="-ml-0.5 flex h-16 items-center gap-x-6">
                             <button type="button" className="-m-2.5 p-2.5 text-slate-700"
                                     onClick={() => setMobileMenuOpen(false)}>
@@ -164,7 +164,7 @@ const Layout = ({children}: { children: ReactNode }) => {
                                             item.current
                                                 ? 'bg-gray-50 text-blue-600'
                                                 : 'text-slate-700 hover:text-blue-600 hover:bg-gray-50',
-                                            'group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm leading-6 font-semibold'
+                                            'group flex gap-x-3 rounded-lg py-2 pl-2 pr-3 text-sm leading-6 font-semibold'
                                         )}
                                     >
                                         <item.icon

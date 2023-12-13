@@ -13,9 +13,23 @@ const userApi = baseApi.injectEndpoints({
             transformResponse: (response: ObjectResponse) => <User>transformer(response),
             invalidatesTags: [{type: 'User', id: 'USER_LIST'}]
         }),
+        sigInUser: builder.mutation<User, { pubkey: string, password: string }>({
+            query: ({pubkey, password}) => ({
+                method: 'POST', url: '/auth/sign_in', body: {user: {pubkey, password}}
+            }),
+            transformResponse: (response: Record<string, any>) => (<User>{
+                    id: response.id,
+                    pubkey: response.pubkey,
+                    npub: response.npub,
+                    createdAt: response.created_at,
+                    updatedAt: response.updated_at
+                }
+            ),
+            invalidatesTags: [{type: 'User', id: 'USER_LIST'}]
+        })
     }),
     overrideExisting: false
 })
 
-export const {useCreateUserMutation, useQueryUserQuery} = userApi
+export const {useCreateUserMutation, useQueryUserQuery, useSigInUserMutation} = userApi
 export default userApi

@@ -140,7 +140,9 @@ const baseApi = createApi({
                     token: accessToken,
                 },
             }),
+            invalidatesTags: ['User']
         }),
+
     }),
 })
 

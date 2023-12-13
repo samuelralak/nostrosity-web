@@ -9,6 +9,6 @@ export interface AppSession {
     } | undefined;
     privateKeys: {
         nsec: string;
-        hex: string;
+        privkey: string;
     } | undefined
 }

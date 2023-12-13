@@ -1,4 +1,5 @@
 import {Data, ObjectResponse} from "@/resources/user";
+import {nip19} from "nostr-tools";
 
 /**
  *
@@ -25,4 +26,32 @@ export const generateCodeVerifier = (len = 128) => {
     }
 
     return result
+}
+
+/**
+ *
+ * @param key
+ */
+export const validatePrivateKey = (key: string): 'nsec' | 'hex' | false => {
+    const hexRegex = /^[0-9a-fA-F]+$/;
+    const nsecRegex = /^nsec\d+[a-zA-Z0-9]+$/;
+
+    if (hexRegex.test(key) && key.length === 64) {
+        return 'hex'
+    }
+
+    if (nsecRegex.test(key)) {
+        return 'nsec'
+    }
+
+    return false
+}
+
+/**
+ *
+ * @param nsec
+ */
+export const decodeNsec = (nsec: `nsec1${string}`): string => {
+    const {data} = nip19.decode(nsec)
+    return data
 }

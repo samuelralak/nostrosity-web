@@ -123,7 +123,7 @@ const FormContainerModal = () => {
                                                             type="text"
                                                             name="project-name"
                                                             id="project-name"
-                                                            className="block w-full rounded-md border-0 py-3.5 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-lg border-0 py-3.5 text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -143,7 +143,7 @@ const FormContainerModal = () => {
                                                             type="text"
                                                             name="project-name"
                                                             id="project-name"
-                                                            className="block w-full rounded-md border-0 py-3.5 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-lg border-0 py-3.5 text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -163,7 +163,7 @@ const FormContainerModal = () => {
                                                             type="text"
                                                             name="project-name"
                                                             id="project-name"
-                                                            className="block w-full rounded-md border-0 py-3.5 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-lg border-0 py-3.5 text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -183,7 +183,7 @@ const FormContainerModal = () => {
                                                             type="text"
                                                             name="project-name"
                                                             id="project-name"
-                                                            className="block w-full rounded-md border-0 py-3.5 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-lg border-0 py-3.5 text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -204,7 +204,7 @@ const FormContainerModal = () => {
                                                             id="project-description"
                                                             name="project-description"
                                                             rows={3}
-                                                            className="block w-full rounded-md border-0 py-3.5 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-lg border-0 py-3.5 text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                                             defaultValue={''}
                                                         />
                                                     </div>
@@ -217,14 +217,14 @@ const FormContainerModal = () => {
                                             <div className="flex justify-end space-x-3">
                                                 <button
                                                     type="button"
-                                                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                                    className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-2 ring-inset ring-gray-300 hover:bg-gray-50"
                                                     onClick={() => setOpen(false)}
                                                 >
                                                     Cancel
                                                 </button>
                                                 <button
                                                     type="submit"
-                                                    className="inline-flex justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                    className="inline-flex justify-center rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                 >
                                                     Create
                                                 </button>
