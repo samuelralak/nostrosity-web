@@ -38,6 +38,7 @@ const Page = () => {
                     })
 
                     dispatch(accessTokenReceived())
+                    router.refresh()
                 }
             })()
         }
