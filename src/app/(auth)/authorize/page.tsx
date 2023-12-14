@@ -38,11 +38,10 @@ const Page = () => {
                     })
 
                     dispatch(accessTokenReceived())
-                    router.replace('/general')
                 }
             })()
         }
-    })
+    }, [code, session.codeVerifier])
 
     return <Loader loadingText={'Authorizing'} />
 }
