@@ -42,7 +42,7 @@ const Page = () => {
                 }
             })()
         }
-    }, [])
+    }, [code, session.codeVerifier])
 
     return <Loader loadingText={'Authorizing'} />
 }
