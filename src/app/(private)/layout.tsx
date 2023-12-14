@@ -72,7 +72,7 @@ const Layout = ({children}: { children: ReactNode }) => {
         if (!session.isLoggedIn) {
             router.replace('/login')
         }
-    }, [])
+    }, [session.isLoggedIn])
 
     if (session.isLoggingOut) {
         return (<Loader loadingText={'Signing out'} />)
