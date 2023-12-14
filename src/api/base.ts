@@ -40,7 +40,7 @@ const tokenRequest = (tokenData: Token) => {
 const prepareHeaders = (headers: Headers, _queryApi: Pick<BaseQueryApi, 'getState' | 'extra' | 'endpoint' | 'type' | 'forced'>) => {
     const session = <AppSession>secureLocalStorage.getItem(constants.STORAGE_KEY)
 
-    if (session.token) {
+    if (session?.token) {
         const {tokenType, accessToken} = session.token
         headers.set('Authorization', `${tokenType} ${accessToken}`)
     }
