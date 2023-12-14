@@ -12,6 +12,7 @@ export interface SessionState {
     isLoggedIn: boolean;
     codeVerifier?: string;
     ndkProfile?: NDKUserProfile;
+    isLoggingOut?: boolean;
 }
 
 const initialState: SessionState = {
@@ -49,7 +50,9 @@ const sessionSlice = createSlice({
         updateProfile: (state, {payload}: PayloadAction<NDKUserProfile>) => {
             state.ndkProfile = {...state.ndkProfile, ...payload}
         },
-        userSignedOut: (_) => initialState,
+        userSignedOut: (state) => {
+            state.isLoggingOut = true
+        },
         accessTokenRevoked: (_) => initialState
     }
 })

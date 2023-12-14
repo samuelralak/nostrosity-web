@@ -24,6 +24,7 @@ import {useRevokeTokenMutation} from "@/api/base";
 import {Logo} from "@/components/public/Logo";
 import NDKSubscriptionProvider from "@/components/private/NDKSubscriptionProvider";
 import {fetchBasicAuthToken} from "@/components/AuthProvider";
+import Loader from "@/components/Loader";
 
 interface INavigation {
     name: string;
@@ -72,6 +73,10 @@ const Layout = ({children}: { children: ReactNode }) => {
             router.replace('/login')
         }
     }, [])
+
+    if (session.isLoggingOut) {
+        return (<Loader loadingText={'Signing out'} />)
+    }
 
     return (
         <NDKSubscriptionProvider>
