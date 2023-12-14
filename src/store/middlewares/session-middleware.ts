@@ -26,9 +26,9 @@ sessionListenerMiddleware.startListening({
             })
         }
 
-        if (action.type === userSignedOut.type) {
-            await secureLocalStorage.removeItem(constants.STORAGE_KEY)
-            await fetchBasicAuthToken()
-        }
+        // if (action.type === userSignedOut.type) {
+        //     await secureLocalStorage.removeItem(constants.STORAGE_KEY)
+        //     await fetchBasicAuthToken()
+        // }
     },
 })

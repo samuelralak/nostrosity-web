@@ -23,6 +23,7 @@ import {AppSession} from "@/resources/session";
 import {useRevokeTokenMutation} from "@/api/base";
 import {Logo} from "@/components/public/Logo";
 import NDKSubscriptionProvider from "@/components/private/NDKSubscriptionProvider";
+import {fetchBasicAuthToken} from "@/components/AuthProvider";
 
 interface INavigation {
     name: string;
@@ -52,22 +53,25 @@ const Layout = ({children}: { children: ReactNode }) => {
     const dispatch = useDispatch()
     const [revokeToken] = useRevokeTokenMutation()
 
-    const onSignOut = () => {
+    const onSignOut = async () => {
         const token = (secureLocalStorage.getItem(constants.STORAGE_KEY) as AppSession).token
+        await secureLocalStorage.removeItem(constants.STORAGE_KEY)
+        await fetchBasicAuthToken()
         dispatch(userSignedOut())
 
         const timeout = setTimeout(async () => {
             await revokeToken({accessToken: token?.accessToken})
             dispatch(accessTokenRevoked())
+            window.location.reload()
             clearTimeout(timeout)
-        }, 1000)
+        }, 500)
     }
 
     useEffect(() => {
         if (!session.isLoggedIn) {
             router.replace('/login')
         }
-    }, [session.isLoggedIn])
+    }, [])
 
     return (
         <NDKSubscriptionProvider>
