@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import constants from "@/constants";
 import secureLocalStorage from "react-secure-storage";
 import {AppSession} from "@/resources/session";
+import {NDKUserProfile} from "@nostr-dev-kit/ndk";
 
 export interface SessionState {
     id?: string;
@@ -10,6 +11,7 @@ export interface SessionState {
     signerMethod?: "nip07" | "nip46" | "privateKey";
     isLoggedIn: boolean;
     codeVerifier?: string;
+    ndkProfile?: NDKUserProfile;
 }
 
 const initialState: SessionState = {
@@ -44,6 +46,9 @@ const sessionSlice = createSlice({
         userIdReceived: (state, {payload: userId}: PayloadAction<string>) => {
             state.id = userId
         },
+        updateProfile: (state, {payload}: PayloadAction<NDKUserProfile>) => {
+            state.ndkProfile = {...state.ndkProfile, ...payload}
+        },
         userSignedOut: (_) => initialState,
         accessTokenRevoked: (_) => initialState
     }
@@ -55,6 +60,7 @@ export const {
     accessTokenReceived,
     userIdReceived,
     userSignedOut,
+    updateProfile,
     accessTokenRevoked
 } = sessionSlice.actions
 export default sessionSlice.reducer

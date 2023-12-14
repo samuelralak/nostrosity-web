@@ -18,6 +18,19 @@ export interface NDKContext {
     publishEvent: (kind: number, content: Record<string, any> | string) => Promise<void>
 }
 
+const relays = [
+    "wss://pablof7z.nostr1.com",
+    "wss://offchain.pub",
+    "wss://relay.f7z.io",
+    "wss://relay.damus.io",
+    "wss://relay.snort.social",
+    "wss://offchain.pub/",
+    "wss://nostr.mom",
+    "wss://nostr-pub.wellorder.net",
+    "wss://purplepag.es",
+    'wss://nos.lol', 'wss://nostr.688.org'
+]
+
 export const NDKContext = createContext<NDKContext | null>(null)
 
 const NDKProvider = ({children}: { children: ReactNode }) => {
@@ -27,7 +40,7 @@ const NDKProvider = ({children}: { children: ReactNode }) => {
 
     const connectNDK = async () => {
         try {
-            ndk.current = new NDK({explicitRelayUrls: ['wss://nos.lol', 'wss://nostr.688.org']});
+            ndk.current = new NDK({explicitRelayUrls: relays});
             ndk.current.connect(3000)
             setNDKConnected(true)
         } catch (e) {
