@@ -37,12 +37,13 @@ const Page = () => {
 
                     const timeout = setTimeout(() => {
                         dispatch(accessTokenReceived())
+                        router.replace('/general')
                         clearTimeout(timeout)
                     }, 1000)
                 }
             })()
         } else {
-            window.location.reload()
+            router.replace('/login')
         }
     }, [code, session.codeVerifier, session.isLoggedIn])
 
