@@ -16,8 +16,7 @@ const ProfileSection = () => {
                     <dt className="font-medium text-slate-900 sm:w-64 sm:flex-none sm:pr-6">Username</dt>
                     <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                         <div className="text-slate-900">
-                            {/*{session.ndkProfile?.name}*/}
-                            <ProfileSection />
+                            {session.ndkProfile?.name}
                         </div>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
                             <PencilSquareIcon className="h-5 w-5"/>
