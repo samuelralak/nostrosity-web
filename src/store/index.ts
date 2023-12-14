@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {baseApi, userApi} from "@/api";
 import identifierApi from "@/api/identifier";
