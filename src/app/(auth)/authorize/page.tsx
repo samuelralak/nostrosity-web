@@ -19,9 +19,7 @@ const Page = () => {
     const code = searchParams.get('code')
 
     useEffect(() => {
-        if (!code || !session.codeVerifier) {
-            router.replace('/login')
-        } else {
+        if (!session.isLoggedIn && (code && session.codeVerifier)) {
             (async () => {
                 const response = await createAccessToken({code, codeVerifier: session.codeVerifier!})
 
@@ -43,6 +41,8 @@ const Page = () => {
                     }, 1000)
                 }
             })()
+        } else {
+            router.replace('/login')
         }
     }, [code, session.codeVerifier, session.isLoggedIn])
 

@@ -21,7 +21,7 @@ sessionListenerMiddleware.startListening({
 
         if (actionTypes.includes(action.type)) {
             const {session} = listenerApi.getState() as RootState
-            secureLocalStorage.setItem(constants.STORAGE_KEY, {
+            await secureLocalStorage.setItem(constants.STORAGE_KEY, {
                 ...sessionFromStorage, ...{user: session}
             })
         }

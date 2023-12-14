@@ -66,6 +66,7 @@ const Page = () => {
 
         if (('data' in response)) {
             dispatch(userIdReceived(response.data.id))
+            await fetchBasicAuthToken()
             const codeChallenge = searchParams.get('codeChallenge')
             const codeVerifier = searchParams.get('codeVerifier')
             const authData = await createAuthorizationCode({codeChallenge, userId: response.data.id})
@@ -77,9 +78,7 @@ const Page = () => {
                     await publishEvent(0, {...ndkProfile, ...{nip05}})
                 }
 
-                await fetchBasicAuthToken()
                 setOpenAlert(false)
-
                 dispatch(authorizationCodeReceived(codeVerifier!))
                 router.push(authData.data.redirect_uri, {absolute: true})
             }
