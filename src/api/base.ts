@@ -24,10 +24,12 @@ const tokenRequest = (tokenData: Token) => {
         return {
             ...request,
             ...{
-                ...request.body,
-                refresh_token: tokenData.refreshToken,
-                grant_type: 'refresh_token',
-                scope: 'user'
+                body: {
+                    ...request.body,
+                    refresh_token: tokenData.refreshToken,
+                    grant_type: 'refresh_token',
+                    scope: 'user'
+                }
             }
         }
     }
@@ -111,7 +113,7 @@ const baseApi = createApi({
     baseQuery: baseQueryWithReauth,
     endpoints: builder => ({
         createAuthorizationCode: builder.mutation({
-            query: ({ codeChallenge, userId }) => ({
+            query: ({codeChallenge, userId}) => ({
                 url: '/oauth/authorize',
                 method: 'POST',
                 body: {
@@ -126,7 +128,7 @@ const baseApi = createApi({
             }),
         }),
         createAccessToken: builder.mutation({
-            query: ({ code, codeVerifier }) => ({
+            query: ({code, codeVerifier}) => ({
                 url: '/oauth/token',
                 method: 'POST',
                 body: {
@@ -138,7 +140,7 @@ const baseApi = createApi({
             }),
         }),
         revokeToken: builder.mutation({
-            query: ({ accessToken }) => ({
+            query: ({accessToken}) => ({
                 url: '/oauth/revoke',
                 method: 'POST',
                 body: {
