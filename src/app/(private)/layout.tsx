@@ -63,7 +63,7 @@ const Layout = ({children}: { children: ReactNode }) => {
         const timeout = setTimeout(async () => {
             await revokeToken({accessToken: token?.accessToken})
             dispatch(accessTokenRevoked())
-            window.location.reload()
+            router.refresh()
             clearTimeout(timeout)
         }, 500)
     }
@@ -72,9 +72,9 @@ const Layout = ({children}: { children: ReactNode }) => {
         if (!session.isLoggedIn) {
             router.replace('/login')
         }
-    }, [session.isLoggedIn])
+    }, [])
 
-    if (session.isLoggingOut) {
+    if (session.isLoggingOut || !session.isLoggedIn) {
         return (<Loader loadingText={'Signing out'} />)
     }
 
