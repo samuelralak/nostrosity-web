@@ -37,6 +37,7 @@ const Page = () => {
 
                     const timeout = setTimeout(() => {
                         dispatch(accessTokenReceived())
+                        window.location.reload()
                         clearTimeout(timeout)
                     }, 1000)
                 }
