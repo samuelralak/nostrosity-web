@@ -22,29 +22,32 @@ const Page = () => {
         if (!code || !session.codeVerifier) {
             router.replace('/login')
         } else {
-            (async () => {
-                const response = await createAccessToken({code, codeVerifier: session.codeVerifier!})
+            if (session.isLoggedIn) {
+                router.refresh()
+            } else {
+                (async () => {
+                    const response = await createAccessToken({code, codeVerifier: session.codeVerifier!})
 
-                if (('data' in response)) {
-                    const tokenResponse = response.data
-                    await secureLocalStorage.setItem(constants.STORAGE_KEY, {
-                        user: {...session, isLoggedIn: true},
-                        token: {
-                            accessToken: tokenResponse.access_token,
-                            tokenType: tokenResponse.token_type,
-                            expiresIn: tokenResponse.expires_in,
-                            refreshToken: tokenResponse.refresh_token,
-                        }
-                    })
+                    if (('data' in response)) {
+                        const tokenResponse = response.data
+                        await secureLocalStorage.setItem(constants.STORAGE_KEY, {
+                            user: {...session, isLoggedIn: true},
+                            token: {
+                                accessToken: tokenResponse.access_token,
+                                tokenType: tokenResponse.token_type,
+                                expiresIn: tokenResponse.expires_in,
+                                refreshToken: tokenResponse.refresh_token,
+                            }
+                        })
 
-                    dispatch(accessTokenReceived())
-                    router.refresh()
-                }
-            })()
+                        dispatch(accessTokenReceived())
+                    }
+                })()
+            }
         }
-    }, [code, session.codeVerifier])
+    }, [code, session.codeVerifier, session.isLoggedIn])
 
-    return <Loader loadingText={'Authorizing'} />
+    return <Loader loadingText={'Authorizing'}/>
 }
 
 export default Page
