@@ -22,28 +22,27 @@ const Page = () => {
         if (!code || !session.codeVerifier) {
             router.replace('/login')
         } else {
-            if (session.isLoggedIn) {
-                router.refresh()
-            } else {
-                (async () => {
-                    const response = await createAccessToken({code, codeVerifier: session.codeVerifier!})
+            (async () => {
+                const response = await createAccessToken({code, codeVerifier: session.codeVerifier!})
 
-                    if (('data' in response)) {
-                        const tokenResponse = response.data
-                        await secureLocalStorage.setItem(constants.STORAGE_KEY, {
-                            user: {...session, isLoggedIn: true},
-                            token: {
-                                accessToken: tokenResponse.access_token,
-                                tokenType: tokenResponse.token_type,
-                                expiresIn: tokenResponse.expires_in,
-                                refreshToken: tokenResponse.refresh_token,
-                            }
-                        })
+                if (('data' in response)) {
+                    const tokenResponse = response.data
+                    await secureLocalStorage.setItem(constants.STORAGE_KEY, {
+                        user: {...session, isLoggedIn: true},
+                        token: {
+                            accessToken: tokenResponse.access_token,
+                            tokenType: tokenResponse.token_type,
+                            expiresIn: tokenResponse.expires_in,
+                            refreshToken: tokenResponse.refresh_token,
+                        }
+                    })
 
+                    const timeout = setTimeout(() => {
                         dispatch(accessTokenReceived())
-                    }
-                })()
-            }
+                        clearTimeout(timeout)
+                    }, 1000)
+                }
+            })()
         }
     }, [code, session.codeVerifier, session.isLoggedIn])
 
