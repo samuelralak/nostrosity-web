@@ -1,5 +1,5 @@
 import SectionContainer from "@/components/private/general/SectionContainer";
-import {DocumentDuplicateIcon} from "@heroicons/react/24/outline";
+import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
 import {SessionState} from "@/store/reducers/session-reducer";
@@ -15,9 +15,12 @@ const ProfileSection = () => {
                 <div className="pt-6 sm:flex">
                     <dt className="font-medium text-slate-900 sm:w-64 sm:flex-none sm:pr-6">Username</dt>
                     <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div className="text-slate-900">{session.ndkProfile?.name}</div>
+                        <div className="text-slate-900">
+                            {/*{session.ndkProfile?.name}*/}
+                            <ProfileSection />
+                        </div>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
@@ -26,7 +29,7 @@ const ProfileSection = () => {
                     <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                         <div className="text-slate-900">{session.ndkProfile?.displayName}</div>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
@@ -35,7 +38,7 @@ const ProfileSection = () => {
                     <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                         <div className="text-slate-900">{session.ndkProfile?.lud16}</div>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
@@ -44,7 +47,7 @@ const ProfileSection = () => {
                     <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                         <div className="text-slate-900">{session.ndkProfile?.website}</div>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
@@ -55,7 +58,7 @@ const ProfileSection = () => {
                             {session.ndkProfile?.about}
                         </p>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
@@ -66,7 +69,7 @@ const ProfileSection = () => {
                             {session.ndkProfile?.bio}
                         </p>
                         <button type="button" className="font-semibold text-blue-600 hover:text-blue-500">
-                            <DocumentDuplicateIcon className="h-5 w-5"/>
+                            <PencilSquareIcon className="h-5 w-5"/>
                         </button>
                     </dd>
                 </div>
