@@ -73,7 +73,6 @@ const Page = () => {
 
             if (('data' in authData)) {
                 if (changeNip05) {
-                    setNDKSigner()
                     const nip05 = params.user.identifiers_attributes[0].name + '@nostrosity.com'
                     await publishEvent(0, {...ndkProfile, ...{nip05}})
                 }

@@ -43,16 +43,9 @@ const Page = () => {
             const decodedKey = privateKeyType === 'nsec' ? decodeNsec(privateKey as `nsec1${string}`) : privateKey
             const signer = new NDKPrivateKeySigner(decodedKey)
             const ndkUser = await signer.user()
+            fromStorage.privateKeys = {privkey: decodedKey, nsec: nip19.nsecEncode(decodedKey)}
 
-            secureLocalStorage.setItem(constants.STORAGE_KEY, {
-                ...fromStorage, ...{
-                    privateKeys: {
-                        privkey: decodedKey,
-                        nsec: nip19.nsecEncode(decodedKey)
-                    }
-                }
-            })
-
+            await secureLocalStorage.setItem(constants.STORAGE_KEY, fromStorage)
             _dispatchSignerAndProceed(ndkUser.pubkey, ndkUser.npub, "privateKey")
         } else {
             // TODO: Trigger error notification with human message

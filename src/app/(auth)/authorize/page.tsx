@@ -9,6 +9,7 @@ import {useCreateAccessTokenMutation} from "@/api/base";
 import secureLocalStorage from "react-secure-storage";
 import constants from "@/constants";
 import Loader from "@/components/Loader";
+import {AppSession} from "@/resources/session";
 
 const Page = () => {
     const router = useRouter()
@@ -25,13 +26,16 @@ const Page = () => {
 
                 if (('data' in response)) {
                     const tokenResponse = response.data
+                    const fromStorage = secureLocalStorage.getItem(constants.STORAGE_KEY) as AppSession
                     await secureLocalStorage.setItem(constants.STORAGE_KEY, {
-                        user: {...session, isLoggedIn: true},
-                        token: {
-                            accessToken: tokenResponse.access_token,
-                            tokenType: tokenResponse.token_type,
-                            expiresIn: tokenResponse.expires_in,
-                            refreshToken: tokenResponse.refresh_token,
+                        ...fromStorage, ...{
+                            user: {...session, isLoggedIn: true},
+                            token: {
+                                accessToken: tokenResponse.access_token,
+                                tokenType: tokenResponse.token_type,
+                                expiresIn: tokenResponse.expires_in,
+                                refreshToken: tokenResponse.refresh_token,
+                            }
                         }
                     })
 

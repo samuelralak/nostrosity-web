@@ -1,13 +1,8 @@
-"use client"
-
 import {Container} from "@/components/public/Container";
 import {Logo} from "@/components/public/Logo";
 import {Button} from "@/components/public/Button";
-import {useRouter} from "next/navigation";
 
 export function Header() {
-    const router = useRouter()
-
     return (
         <header className="relative z-50 flex-none lg:pt-11">
             <Container className="flex flex-wrap items-center justify-center sm:justify-between lg:flex-nowrap">
@@ -19,7 +14,7 @@ export function Header() {
 
                 </div>
                 <div className="hidden sm:mt-10 sm:flex lg:mt-0 lg:grow lg:basis-0 lg:justify-end">
-                    <Button onClick={() => router.push('/login')}>Get started</Button>
+                    <Button href='/login'>Get started</Button>
                 </div>
             </Container>
         </header>

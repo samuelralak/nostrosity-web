@@ -1,12 +1,12 @@
 import SectionContainer from "@/components/private/general/SectionContainer";
-import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
 import {SessionState} from "@/store/reducers/session-reducer";
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import TextInput from "@/components/forms/TextInput";
 import ActionButtons from "@/components/private/general/ActionButtons";
 import {NDKUserProfile} from "@nostr-dev-kit/ndk";
+import {NDKContext} from "@/components/NDKProvider";
 
 interface InputState {
     [key: string]: {
@@ -30,6 +30,7 @@ const ProfileSection = () => {
     const [ndkInput, setNDKInput] = useState<InputState>()
     const inputRef = useRef<HTMLInputElement | null>(null)
     const session = useSelector((state: RootState) => state.session) as SessionState
+    const {setNDKSigner, publishEvent} = useContext(NDKContext) as NDKContext
 
     const handleNDKInput = (currentTarget: HTMLInputElement) => {
         const name = currentTarget.name
@@ -42,9 +43,9 @@ const ProfileSection = () => {
         setNDKInput({...ndkInput, ...{[name]: {...input, isEditing: !(input?.isEditing ?? false)}}})
     }
 
-    const onDoneEditing = () => {
+    const onDoneEditing = async () => {
         const data = Object.entries(ndkInput!).reduce(inputToNDKReducer, {})
-        console.log({data})
+        await publishEvent(0, {...session.ndkProfile, ...data})
     }
 
     return (

@@ -50,6 +50,9 @@ const NDKProvider = ({children}: { children: ReactNode }) => {
     }
 
     const publishEvent = async (kind: number, content: Record<string, any> | string) => {
+        if (!ndkInstance().signer) {
+            setNDKSigner()
+        }
         const ndkEvent = new NDKEvent(ndk.current)
         ndkEvent.kind = kind
         ndkEvent.content = typeof content === 'object' ? JSON.stringify(content) : content

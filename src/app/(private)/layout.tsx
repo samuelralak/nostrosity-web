@@ -63,7 +63,7 @@ const Layout = ({children}: { children: ReactNode }) => {
         const timeout = setTimeout(async () => {
             await revokeToken({accessToken: token?.accessToken})
             dispatch(accessTokenRevoked())
-            router.refresh()
+            window.location.reload()
             clearTimeout(timeout)
         }, 500)
     }
