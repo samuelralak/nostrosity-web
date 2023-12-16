@@ -1,11 +1,10 @@
 import SectionContainer from "@/components/private/general/SectionContainer";
-import {Suspense} from "react";
 import Identifiers from "@/components/Identifiers";
 
 const IdentifierSection = () => {
     return (
         <SectionContainer title={'NIP-05 Identifiers'} subtitle={'Connect bank accounts to your account.'}>
-            <Identifiers />
+            <Identifiers/>
 
             <div className="flex border-t border-gray-100 pt-6">
                 <button type="button" className="text-sm font-semibold leading-6 text-blue-600 hover:text-blue-500">
