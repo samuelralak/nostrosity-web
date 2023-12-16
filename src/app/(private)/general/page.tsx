@@ -10,11 +10,7 @@ const Page = () => {
     return (
         <div className="flex flex-col gap-y-16">
             <ProfileSection/>
-
-            <Suspense fallback={<p>Loading identifiers...</p>}>
-                <IdentifierSection />
-            </Suspense>
-
+            <IdentifierSection />
 
             <SectionContainer title={'Personal relays'} subtitle={'Connect bank accounts to your account.'}>
                 <ul role="list" className="mt-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
