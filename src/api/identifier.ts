@@ -4,8 +4,8 @@ import {transformer} from "@/utils";
 
 const identifierApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        fetchIdentifiers: builder.query<Identifier[], string | undefined>({
-            query: (userId?: string) => ({method: 'GET', url: `/identifiers/${userId}`}),
+        fetchIdentifiers: builder.query<Identifier[], void>({
+            query: () => ({method: 'GET', url: '/identifiers'}),
             transformResponse: (response: ListResponse) => response.data.map((record) => <Identifier>transformer(record)),
             providesTags: (result, error, arg) =>
                 result
