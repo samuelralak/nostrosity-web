@@ -14,7 +14,10 @@ export const fetchBasicAuthToken = () => startTransition(() => {
         if (success) {
             await secureLocalStorage.setItem(constants.STORAGE_KEY, {
                 ...session, ...{
-                    token: {tokenType: 'Basic', accessToken: token!}
+                    token: {
+                        tokenType: 'Basic',
+                        accessToken: token!
+                    }
                 }
             })
         }

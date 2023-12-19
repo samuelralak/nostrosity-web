@@ -11,8 +11,8 @@ const ActionButtons = ({name, isEditing, toggleAction, submitActionHandler}: Pro
     const onToggleAction = () => toggleAction(name)
 
     const onSaveAction = () => {
-        toggleAction(name)
         submitActionHandler()
+        toggleAction(name)
     }
 
     if (isEditing) {

@@ -5,8 +5,7 @@ import secureLocalStorage from "react-secure-storage";
 import {AppSession} from "@/resources/session";
 import {Mutex} from "async-mutex";
 import {Token} from "@/resources/token";
-import {accessTokenRevoked, userSignedOut} from "@/store/reducers/session-reducer";
-import {fetchBasicAuthToken} from "@/components/AuthProvider";
+import {accessTokenExpired, accessTokenRevoked, userSignedOut} from "@/store/reducers/session-reducer";
 
 const mutex = new Mutex()
 
@@ -28,7 +27,8 @@ const tokenRequest = (tokenData: Token) => {
                     ...request.body,
                     refresh_token: tokenData.refreshToken,
                     grant_type: 'refresh_token',
-                    scope: 'user'
+                    scope: 'user',
+                    redirect_uri: constants.REDIRECT_URI
                 }
             }
         }
@@ -64,6 +64,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
     if (result.error && result.error.status === 401) {
         if (!mutex.isLocked()) {
+            api.dispatch(accessTokenExpired())
+            await new Promise(resolve => setTimeout(resolve, 1000));
             const release = await mutex.acquire()
 
             try {
@@ -94,9 +96,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
                     await secureLocalStorage.removeItem(constants.STORAGE_KEY)
                     api.dispatch(userSignedOut())
                     api.dispatch(accessTokenRevoked())
-                    // await fetchBasicAuthToken()
-                    // api.dispatch(userSignedOut())
-                    // api.dispatch(accessTokenRevoked())
                 }
             } finally {
                 // release must be called once the mutex should be released again.

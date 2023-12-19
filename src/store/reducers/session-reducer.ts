@@ -13,6 +13,7 @@ export interface SessionState {
     codeVerifier?: string;
     ndkProfile?: NDKUserProfile;
     isLoggingOut?: boolean;
+    basicAuth?: string;
 }
 
 const initialState: SessionState = {
@@ -53,6 +54,7 @@ const sessionSlice = createSlice({
         userSignedOut: (state) => {
             state.isLoggingOut = true
         },
+        accessTokenExpired: (state) => state,
         accessTokenRevoked: (_) => initialState
     }
 })
@@ -64,7 +66,8 @@ export const {
     userIdReceived,
     userSignedOut,
     updateProfile,
-    accessTokenRevoked
+    accessTokenRevoked,
+    accessTokenExpired
 } = sessionSlice.actions
 export default sessionSlice.reducer
 

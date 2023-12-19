@@ -3,10 +3,12 @@ import {RootState} from "@/store";
 import secureLocalStorage from "react-secure-storage";
 import constants from "@/constants";
 import {
+    accessTokenExpired,
     accessTokenReceived,
     accessTokenRevoked,
     signerMethodReceived,
-    userIdReceived, userSignedOut
+    userIdReceived,
+    userSignedOut
 } from "@/store/reducers/session-reducer";
 import {AppSession} from "@/resources/session";
 import {fetchBasicAuthToken} from "@/components/AuthProvider";
@@ -14,7 +16,7 @@ import {fetchBasicAuthToken} from "@/components/AuthProvider";
 export const sessionListenerMiddleware = createListenerMiddleware()
 
 sessionListenerMiddleware.startListening({
-    matcher: isAnyOf(signerMethodReceived, accessTokenReceived, userIdReceived, userSignedOut, accessTokenRevoked),
+    matcher: isAnyOf(signerMethodReceived, accessTokenReceived, userIdReceived, userSignedOut, accessTokenRevoked, accessTokenExpired),
     effect: async (action, listenerApi) => {
         const actionTypes = [signerMethodReceived, accessTokenReceived, userIdReceived].map((action) => action.type)
         const sessionFromStorage = secureLocalStorage.getItem(constants.STORAGE_KEY) as AppSession
@@ -26,9 +28,8 @@ sessionListenerMiddleware.startListening({
             })
         }
 
-        // if (action.type === userSignedOut.type) {
-        //     await secureLocalStorage.removeItem(constants.STORAGE_KEY)
-        //     await fetchBasicAuthToken()
-        // }
+        if (action.type === accessTokenExpired.type || action.type === accessTokenRevoked.type) {
+            await fetchBasicAuthToken()
+        }
     },
 })
