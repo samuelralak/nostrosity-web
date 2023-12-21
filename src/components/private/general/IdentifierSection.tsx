@@ -6,9 +6,11 @@ import ActionButtons from "@/components/private/general/ActionButtons";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {IdentifierSchema} from "@/schemas";
+import {useAddIdentifierMutation} from "@/api/identifier";
 
 const IdentifierSection = () => {
     const [addNipIdentifier, setAddNipIdentifier] = useState<{ name: string }>()
+    const [addIdentifier] = useAddIdentifierMutation()
     const {
         register,
         handleSubmit,
@@ -20,7 +22,10 @@ const IdentifierSection = () => {
         setAddNipIdentifier(({...addNipIdentifier, name: currentTarget.value}))
     }
 
-    const onIdentifierNameSubmit: SubmitHandler<FieldValues> = (data) => console.log({data})
+    const onIdentifierNameSubmit: SubmitHandler<FieldValues> = async ({name}) => {
+        const result = await addIdentifier({name})
+        console.log({result})
+    }
 
     return (
         <SectionContainer title={'NIP-05 Identifiers'} subtitle={'Connect bank accounts to your account.'}>

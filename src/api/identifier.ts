@@ -1,5 +1,5 @@
 import baseApi from "@/api/base";
-import {Identifier, ListResponse, ObjectResponse, User} from "@/resources/user";
+import {Identifier, ListResponse, ObjectResponse} from "@/resources/user";
 import {transformer} from "@/utils";
 
 const identifierApi = baseApi.injectEndpoints({
@@ -9,8 +9,11 @@ const identifierApi = baseApi.injectEndpoints({
             transformResponse: (response: ListResponse) => response.data.map((record) => <Identifier>transformer(record)),
             providesTags: (result, error, arg) =>
                 result
-                    ? [...result.map(({id}) => ({type: 'Identifier' as const, id})), 'Identifier']
-                    : ['Identifier'],
+                    ? [...result.map(({id}) => ({type: 'Identifier' as const, id})), {
+                        type: 'Identifier',
+                        id: 'IDENTIFIER_LIST'
+                    }]
+                    : [{type: 'Identifier', id: 'IDENTIFIER_LIST'}],
         }),
         addIdentifier: builder.mutation<Identifier, { name: string }>({
             query: (body) => ({
@@ -24,7 +27,7 @@ const identifierApi = baseApi.injectEndpoints({
                 url: `/identifiers/${id}`, method: 'PUT', body: {identifier: {...rest}}
             }),
             transformResponse: (response: ObjectResponse) => <Identifier>transformer(response),
-            invalidatesTags: (result, error, {id}) => [{ type: 'Identifier', id }]
+            invalidatesTags: (result, error, {id}) => [{type: 'Identifier', id}]
         }),
     }),
     overrideExisting: false
