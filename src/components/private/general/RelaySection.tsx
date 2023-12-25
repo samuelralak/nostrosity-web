@@ -2,7 +2,7 @@ import {DocumentDuplicateIcon} from "@heroicons/react/24/outline";
 import SectionContainer from "@/components/private/general/SectionContainer";
 
 const RelaySection = () => (
-    <SectionContainer title={'Personal relays'} subtitle={'Connect bank accounts to your account.'}>
+    <SectionContainer title={'Personal relays'} subtitle={''}>
         <ul role="list" className="mt-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
             <li className="flex justify-between gap-x-6 py-6">
                 <div className="font-medium text-slate-900">sam@nostrosity.com</div>

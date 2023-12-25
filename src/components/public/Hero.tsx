@@ -30,9 +30,6 @@ export function Hero() {
                             With the addition of email forwarding for NIP05 identifiers, <span className="text-slate-900 font-bold">[Nostrosity]</span> focuses on delivering a practical and user-friendly experience for anyone navigating the NOSTR network.
                         </p>
                     </div>
-                    <Button onClick={() => router.push('/login')} className="mt-10 w-full sm:hidden">
-                        Get started
-                    </Button>
                 </div>
             </Container>
         </div>

@@ -28,7 +28,7 @@ const IdentifierSection = () => {
     }
 
     return (
-        <SectionContainer title={'NIP-05 Identifiers'} subtitle={'Connect bank accounts to your account.'}>
+        <SectionContainer title={'NIP-05 Identifiers'} subtitle={''}>
             <Identifiers/>
             {addNipIdentifier ? (
                 <div className="divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
